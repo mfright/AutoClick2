@@ -23,12 +23,13 @@ namespace AutoClick2
         private static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
         int pointX=0, pointY=0, currentPointX, currentPointY; //マウスカーソル位置の設定先
+        Color buttonColor;
 
         public Form1()
         {
             InitializeComponent();
 
-            //btnLockAndClick.Select();
+            buttonColor = btnLockAndClick.BackColor;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -92,7 +93,7 @@ namespace AutoClick2
 
         private void btnLockAndClick_Click(object sender, EventArgs e)
         {
-            if (pointX == 0)
+            if (btnLockAndClick.BackColor != Color.Yellow)
             {
                 pointX = System.Windows.Forms.Cursor.Position.X;
                 pointY = System.Windows.Forms.Cursor.Position.Y;
@@ -101,31 +102,48 @@ namespace AutoClick2
                 txtPointY.Text = pointY + "";
 
                 timerAutoClick.Start();
-                btnLockAndClick.Text = "終了";
                 btnLockAndClick.BackColor = Color.Yellow;
+                btnLockAndClick.Text = "クリック停止";
+                btnStartAtEditedPoint.Enabled = false;
             }
             else
             {
-                Application.Exit();
+                timerAutoClick.Stop();
+                btnLockAndClick.BackColor = buttonColor;
+                btnLockAndClick.Text = "自動クリック開始";
+                btnStartAtEditedPoint.Enabled = true;
             }
+            
         }
 
         private void btnStartAtEditedPoint_Click(object sender, EventArgs e)
         {
-            try
+            if (btnStartAtEditedPoint.BackColor != Color.Yellow)
             {
-                // カーソルを置くべきポイントを取得する
-                pointX = int.Parse(txtPointX.Text);
-                pointY = int.Parse(txtPointY.Text);
-            }
-            catch (Exception ex)
-            {
-                return;
-            }
 
-            timerAutoClick.Start();
-            btnLockAndClick.Text = "終了";
-            btnLockAndClick.BackColor = Color.Yellow;
+                try
+                {
+                    // カーソルを置くべきポイントを取得する
+                    pointX = int.Parse(txtPointX.Text);
+                    pointY = int.Parse(txtPointY.Text);
+                }
+                catch (Exception ex)
+                {
+                    return;
+                }
+
+                timerAutoClick.Start();
+                btnStartAtEditedPoint.Text = "クリック停止";
+                btnStartAtEditedPoint.BackColor = Color.Yellow;
+                btnLockAndClick.Enabled = false;
+            }
+            else
+            {
+                timerAutoClick.Stop();
+                btnStartAtEditedPoint.Text = "上記座標を自動クリック開始";
+                btnStartAtEditedPoint.BackColor = buttonColor;
+                btnLockAndClick.Enabled = true;
+            }
         }
 
         private void timerGetPoint_Tick(object sender, EventArgs e)

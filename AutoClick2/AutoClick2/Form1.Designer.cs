@@ -54,12 +54,13 @@
             // 
             // btnLockAndClick
             // 
+            this.btnLockAndClick.BackColor = System.Drawing.SystemColors.Control;
             this.btnLockAndClick.Location = new System.Drawing.Point(28, 19);
             this.btnLockAndClick.Name = "btnLockAndClick";
             this.btnLockAndClick.Size = new System.Drawing.Size(186, 52);
             this.btnLockAndClick.TabIndex = 1;
             this.btnLockAndClick.Text = "自動クリック開始";
-            this.btnLockAndClick.UseVisualStyleBackColor = true;
+            this.btnLockAndClick.UseVisualStyleBackColor = false;
             this.btnLockAndClick.Click += new System.EventHandler(this.btnLockAndClick_Click);
             // 
             // txtPointX
