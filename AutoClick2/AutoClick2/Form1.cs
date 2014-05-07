@@ -103,7 +103,7 @@ namespace AutoClick2
 
                 timerAutoClick.Start();
                 btnLockAndClick.BackColor = Color.Yellow;
-                btnLockAndClick.Text = "クリック停止";
+                btnLockAndClick.Text = "自動クリック実行中。\r\n止めるにはここをクリック";
                 btnStartAtEditedPoint.Enabled = false;
             }
             else
@@ -133,7 +133,7 @@ namespace AutoClick2
                 }
 
                 timerAutoClick.Start();
-                btnStartAtEditedPoint.Text = "クリック停止";
+                btnStartAtEditedPoint.Text = "自動クリック実行中。\r\n止めるにはここをクリック";
                 btnStartAtEditedPoint.BackColor = Color.Yellow;
                 btnLockAndClick.Enabled = false;
             }
