@@ -99,16 +99,16 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripPoint});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 233);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 232);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(261, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(261, 23);
             this.statusStrip1.TabIndex = 15;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripPoint
             // 
             this.toolStripPoint.Name = "toolStripPoint";
-            this.toolStripPoint.Size = new System.Drawing.Size(44, 17);
+            this.toolStripPoint.Size = new System.Drawing.Size(45, 18);
             this.toolStripPoint.Text = "X:   Y:";
             // 
             // groupBox1
@@ -163,7 +163,7 @@
             this.Controls.Add(this.groupBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimizeBox = false;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "AutoClick";
             this.statusStrip1.ResumeLayout(false);
