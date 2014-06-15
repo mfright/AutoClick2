@@ -34,6 +34,8 @@ namespace AutoClick2
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            doRelease();
+
             currentPointX = System.Windows.Forms.Cursor.Position.X;
             currentPointY = System.Windows.Forms.Cursor.Position.Y;
 
@@ -44,6 +46,7 @@ namespace AutoClick2
 
         }
 
+        //クリックする
         void doClick()
         {
             //[System.Runtime.InteropServices.DllImport("USER32.DLL")]
@@ -53,38 +56,14 @@ namespace AutoClick2
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);   
         }
 
-        // 100px以上動かされていたらtrue
-        /*
-        bool checkPointState(){
-            int currentX = System.Windows.Forms.Cursor.Position.X;
-            int currentY = System.Windows.Forms.Cursor.Position.Y;
+        //リリースする
+        void doRelease()
+        {
+            //[System.Runtime.InteropServices.DllImport("USER32.DLL")]
+            int MOUSEEVENTF_LEFTUP = 0x4;
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        }
 
-            if (pointX - 100 > currentX || pointX + 100 < currentX || pointY - 100 > currentY || pointY + 100 < currentY)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }  */
-
-        //指定座標へカーソルを持っていく
-        /*
-        void setPoint(){
-            StreamReader sr = new StreamReader("settings.ini", Encoding.GetEncoding("Shift_JIS"));
-
-            string text = sr.ReadToEnd();
-
-            sr.Close();
-
-            string[] stArrayData = text.Split(',');
-
-            pointX = int.Parse(stArrayData[0]);
-            pointY = int.Parse(stArrayData[1]);
-
-            System.Windows.Forms.Cursor.Position = new System.Drawing.Point(pointX, pointY);
-        } */
 
         void setPoint(int newX, int newY)
         {
@@ -95,20 +74,33 @@ namespace AutoClick2
         {
             if (btnLockAndClick.BackColor != Color.Yellow)
             {
+                // インターバルを設定する
+                if (!setInterval())
+                {
+                    return;
+                }
+
+                //現在のカーソル位置を表示する
                 pointX = System.Windows.Forms.Cursor.Position.X;
                 pointY = System.Windows.Forms.Cursor.Position.Y;
 
                 txtPointX.Text = pointX + "";
                 txtPointY.Text = pointY + "";
 
+                //タイマーをスタート
                 timerAutoClick.Start();
+
+                //ボタンの表示を変更
                 btnLockAndClick.BackColor = Color.Yellow;
                 btnLockAndClick.Text = "自動クリック実行中。\r\n止めるにはここをクリック";
                 btnStartAtEditedPoint.Enabled = false;
             }
             else
             {
+                //タイマーをストップ
                 timerAutoClick.Stop();
+
+                //ボタンの表示を変更
                 btnLockAndClick.BackColor = buttonColor;
                 btnLockAndClick.Text = "自動クリック開始";
                 btnStartAtEditedPoint.Enabled = true;
@@ -120,6 +112,11 @@ namespace AutoClick2
         {
             if (btnStartAtEditedPoint.BackColor != Color.Yellow)
             {
+                // インターバルを設定する
+                if (!setInterval())
+                {
+                    return;
+                }
 
                 try
                 {
@@ -155,6 +152,24 @@ namespace AutoClick2
             toolStripPoint.Text = "現在のカーソル位置   X: " + currentPointX + "    Y: " + currentPointY;
         }
 
+        Boolean setInterval()
+        {
+            int intervalSecond = 5;
+            try
+            {
+                intervalSecond = int.Parse(txtInterval.Text)*1000;
 
+                timerAutoClick.Interval = intervalSecond;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("インターバルの設定が不正です: " + txtInterval.Text, "エラー");
+
+                return false;
+            }
+
+            return true;
+        }
     }
 }
