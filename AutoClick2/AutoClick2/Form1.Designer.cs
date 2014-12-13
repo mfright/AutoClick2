@@ -103,16 +103,16 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripPoint});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 291);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 292);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(260, 23);
+            this.statusStrip1.Size = new System.Drawing.Size(260, 22);
             this.statusStrip1.TabIndex = 15;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripPoint
             // 
             this.toolStripPoint.Name = "toolStripPoint";
-            this.toolStripPoint.Size = new System.Drawing.Size(45, 18);
+            this.toolStripPoint.Size = new System.Drawing.Size(44, 17);
             this.toolStripPoint.Text = "X:   Y:";
             // 
             // groupBox1
@@ -199,6 +199,8 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "AutoClick";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

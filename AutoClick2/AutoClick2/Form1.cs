@@ -28,9 +28,34 @@ namespace AutoClick2
         public Form1()
         {
             InitializeComponent();
-
-            buttonColor = btnLockAndClick.BackColor;
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            buttonColor = btnLockAndClick.BackColor;    //デフォルトのボタンの色を保存しておく
+
+
+            // settings.iniを読み込み試行し、自動クリック開始すべきなら開始する
+
+            iniController myIniController = new iniController();
+
+            if (myIniController.existSettings == true)
+            {
+                
+                iniController.setting mySetting = myIniController.loadIni();
+                
+                if (mySetting.running)
+                {
+                    txtPointX.Text = mySetting.pointX;
+                    txtPointY.Text = mySetting.pointY;
+                    txtInterval.Text = mySetting.second;
+
+                    btnStartAtEditedPoint_Click(btnStartAtEditedPoint, null);
+                }
+            }
+
+        }
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -171,5 +196,27 @@ namespace AutoClick2
 
             return true;
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("本ソフトを終了すると、自動クリックされなくなります。閉じてよろしいですか？（自動クリックON/OFFの設定は引き継がれます）", "確認", MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+
+            iniController myIniController = new iniController();
+
+            if (btnLockAndClick.BackColor == Color.Yellow || btnStartAtEditedPoint.BackColor == Color.Yellow) {
+                myIniController.saveIni(txtPointX.Text, txtPointY.Text, txtInterval.Text,"1");
+            }
+            else
+            {
+                myIniController.saveIni(txtPointX.Text, txtPointY.Text, txtInterval.Text, "0");
+            }
+
+            
+        }
+
+        
     }
 }
