@@ -122,6 +122,12 @@ namespace AutoClick2
             }
             else
             {
+
+                if (MessageBox.Show("停止すると、自動クリックされなくなります。停止してよろしいですか？（自動クリックON/OFFの設定は引き継がれます）", "確認", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    return;
+                }
+
                 //タイマーをストップ
                 timerAutoClick.Stop();
 
@@ -161,6 +167,11 @@ namespace AutoClick2
             }
             else
             {
+                if (MessageBox.Show("停止すると、自動クリックされなくなります。停止してよろしいですか？（自動クリックON/OFFの設定は引き継がれます）", "確認", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    return;
+                }
+
                 timerAutoClick.Stop();
                 btnStartAtEditedPoint.Text = "上記座標を自動クリック開始";
                 btnStartAtEditedPoint.BackColor = buttonColor;
